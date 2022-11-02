@@ -1,0 +1,12 @@
+body {
+    background-color: darkslategray;
+    color: #ffffff;
+    font-family: sans-serif;
+}
+
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+
+

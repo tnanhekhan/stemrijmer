@@ -1,0 +1,50 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>Stemrijmer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    {#  <link rel="manifest" href="site.webmanifest">#}
+    {#  <link rel="apple-touch-icon" href="icon.png">#}
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="static/css/normalize.css">
+    <link rel="stylesheet" href="static/css/main.css">
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+<!-- Add your site or application content here -->
+<h2>Vul een woord in en wij zoeken een woord dat rijmt:</h2>
+<form hx-post="/rhyme" hx-swap="innerHTML" hx-target="#result" hx-indicator="#spinner" mustache-template="result" style="display: flex">
+    <input type="text" name="query">
+    <input type="submit" value="Zoek">
+    <img id="spinner" class="htmx-indicator" src="static/img/spinner.svg"/>
+</form>
+
+<p id="result"></p>
+
+{#<h2>of Spreek een woord in:</h2>#}
+{#<div x-data>#}
+{#    <button @click="startRecognition()"><strong>MICROPHONE</strong></button>#}
+{#</div>#}
+
+
+<script src="static/js/main.js" defer></script>
+<script src="//unpkg.com/alpinejs" defer></script>
+<script src="//unpkg.com/htmx.org" defer></script>
+<script src="//unpkg.com/mustache" defer></script>
+
+</body>
+
+</html>
