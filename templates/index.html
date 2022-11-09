@@ -20,30 +20,56 @@
     <link rel="stylesheet" href="static/css/main.css">
 
     <meta name="theme-color" content="#fafafa">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.38.1/dist/full.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body>
 
-<!-- Add your site or application content here -->
-<h2>Vul een woord in en wij zoeken een woord dat rijmt:</h2>
-<form hx-post="/rhyme" hx-swap="innerHTML" hx-target="#result" hx-indicator="#spinner" mustache-template="result" style="display: flex">
-    <input type="text" name="query">
-    <input type="submit" value="Zoek">
-    <img id="spinner" class="htmx-indicator" src="static/img/spinner.svg"/>
-</form>
+<div class="hero mt-8">
+    <div class="hero-content text-center">
+        <div class="max-w-md">
+            <h1 class="text-xl">Stemrijmer</h1>
+        </div>
+    </div>
+</div>
+<div class="p-8">
+    <div>
+        <h2>Vul een woord in en wij zoeken een woord dat rijmt:</h2>
+        <form class="input-group" hx-post="/rhyme" hx-target="#type-result" hx-indicator="#spinner" style="display: flex">
+            <input class="input input-bordered  max-w-xs" type="text" name="query">
+            <button class="btn" type="submit">Zoek</button>
+            <img id="spinner" class="htmx-indicator" src="static/img/spinner.svg"/>
+        </form>
+        <ul id="type-result"></ul>
+    </div>
 
-<p id="result"></p>
+    <div class="divider"></div>
 
-{#<h2>of Spreek een woord in:</h2>#}
-{#<div x-data>#}
-{#    <button @click="startRecognition()"><strong>MICROPHONE</strong></button>#}
-{#</div>#}
+    <div>
+        <h2>Spreek een woord in:</h2>
+        <div x-data>
+            <button class="btn" onclick="startRecognition()"><strong>MICROPHONE</strong></button>
+            <ul id="speech-output">
+            </ul>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="mt-8 mb-8">
+        <h2>Woord van de dag:</h2>
+        <h3 id="wotd" hx-get="/random_word" hx-trigger="load" hx-swap="innerHTML"></h3>
+        <button id="wotd-button" class="btn">Wat rijmt op het Woord van de dag?</button>
+        <ul id="wotd-result"></ul>
+    </div>
+</div>
 
 
 <script src="static/js/main.js" defer></script>
 <script src="//unpkg.com/alpinejs" defer></script>
 <script src="//unpkg.com/htmx.org" defer></script>
-<script src="//unpkg.com/mustache" defer></script>
 
 </body>
 
