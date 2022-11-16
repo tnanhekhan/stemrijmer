@@ -16,6 +16,7 @@
     {#  <link rel="apple-touch-icon" href="icon.png">#}
     <!-- Place favicon.ico in the root directory -->
 
+
     <link rel="stylesheet" href="static/css/normalize.css">
     <link rel="stylesheet" href="static/css/main.css">
 
@@ -24,50 +25,41 @@
 
 <body>
 
-<div class="hero mt-8">
-    <div class="hero-content text-center">
-        <div class="max-w-md">
-            <h1 class="text-xl">Stemrijmer</h1>
-        </div>
-    </div>
-</div>
-<div class="p-8">
+<h1>Stemrijmer</h1>
+<div>
     <div>
         <h2>Vul een woord in en wij zoeken een woord dat rijmt:</h2>
-        <form class="input-group" hx-post="/rhyme" hx-target="#type-result" hx-indicator="#spinner" style="display: flex">
-            <input class="input input-bordered  max-w-xs" type="text" name="query">
-            <button class="btn" type="submit">Zoek</button>
+        <form hx-post="/rhyme" hx-target="#type-result" hx-indicator="#spinner" style="display: flex">
+            <input type="text" name="query">
+            <button type="submit">Zoek</button>
             <img id="spinner" class="htmx-indicator" src="static/img/spinner.svg"/>
         </form>
         <div id="type-result"></div>
     </div>
 
-    <div class="divider"></div>
+    <hr/>
 
     <div>
         <h2>Spreek een woord in:</h2>
         <div x-data>
-            <button class="btn" onclick="startRecognition()"><strong>MICROPHONE</strong></button>
-            <ul id="speech-output">
-            </ul>
+            <button onclick="startRecognition()"><strong>MICROPHONE</strong></button>
+            <div id="speech-output">
+            </div>
         </div>
     </div>
 
-    <div class="divider"></div>
+    <hr/>
 
-    <div class="mt-8 mb-8">
+    <div>
         <h2>Woord van de dag:</h2>
         <h3 id="wotd" hx-get="/random_word" hx-trigger="load" hx-swap="innerHTML"></h3>
-        <button id="wotd-button" class="btn">Wat rijmt op het Woord van de dag?</button>
-        <ul id="wotd-result"></ul>
+        <button id="wotd-button">Wat rijmt op het Woord van de dag?</button>
+        <div id="wotd-result"></div>
     </div>
 </div>
 
-
 <script src="static/js/main.js" defer></script>
-<script src="//unpkg.com/alpinejs" defer></script>
 <script src="//unpkg.com/htmx.org" defer></script>
 
 </body>
-
 </html>
