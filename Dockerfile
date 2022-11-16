@@ -8,4 +8,4 @@ RUN ls -a
 
 RUN pip3 install -r requirements.txt
 
-CMD ["gunicorn", "--conf", "app/gunicorn_conf.py", "--bind", "0.0.0.0:8000", "wsgi:app"]
+CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:8000", "wsgi:app"]
