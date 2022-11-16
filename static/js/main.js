@@ -6,11 +6,16 @@ recognition.continous = true;
 recognition.interimResults = true;
 recognition.maxAlternatives = 10;
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+
 function startRecognition() {
-    recognition.start()
-    document.getElementById("speech-output").innerHTML = "";
-    const to_speak = new SpeechSynthesisUtterance("Klik op de knop, en zeg een woord!");
+    const to_speak = new SpeechSynthesisUtterance("Zeg een woord!");
     window.speechSynthesis.speak(to_speak);
+    sleep(1000).then(() => {
+        recognition.start()
+        document.getElementById("speech-output").innerHTML = "";
+    });
 }
 
 let final_result;
