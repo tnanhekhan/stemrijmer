@@ -43,7 +43,7 @@ def rhyme_word():
         if not rijm_embed:
             return "Geen rijmwoorden gevonden!"
         else:
-            return jsonify(rijm_embed)
+            return "<b>" + random.choice(rijm_embed) + "</b> rijmt op " + word + "!"
 
     except KeyError as e:
         return "Geen rijmende woorden gevonden!"
