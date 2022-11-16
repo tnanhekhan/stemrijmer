@@ -23,6 +23,8 @@ recognition.onresult = (event) => {
 
 recognition.onstart = (event) => {
     document.getElementById("speech-output").insertAdjacentHTML("beforeend", "<li><strong>Opname gestart!</strong></li>");
+    const to_speak = new SpeechSynthesisUtterance("Zeg een woord en, klik op de knop!");
+    window.speechSynthesis.speak(to_speak);
 }
 
 recognition.onspeechstart = (event) => {
