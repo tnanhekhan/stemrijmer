@@ -42,12 +42,9 @@ recognition.onend = (event) => {
     let formData = new FormData();
     formData.append('query', final_result);
     fetch('/rhyme', {method: 'POST', body: formData})
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => {
-            document.getElementById("speech-output").insertAdjacentHTML("beforeend", "<li><i>Dit rijmt op <strong>" + final_result + "</strong>:</i></li>");
-            for (let i = 0; i < data.length; i++) {
-                document.getElementById("speech-output").insertAdjacentHTML("beforeend", "<li>" + data[i] + "</li>");
-            }
+            document.getElementById("speech-output").insertAdjacentHTML("beforeend", data);
         })
         .catch(error => {
             document.getElementById("speech-output").insertAdjacentHTML("beforeend", "<li>Geen rijmende woorden gevonden </li>");
@@ -61,14 +58,10 @@ document.getElementById("wotd-button").onclick = () => {
     let formData = new FormData();
     formData.append('query', wotd);
     fetch('/rhyme', {method: 'POST', body: formData})
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => {
-            document.getElementById("wotd-result").insertAdjacentHTML("beforeend", "<li><i>Dit rijmt op <strong>" + wotd
-                + "</strong>:</i></li>");
-            for (let i = 0; i < data.length; i++) {
-                console.log(data[i])
-                document.getElementById("wotd-result").insertAdjacentHTML("beforeend", "<li>" + data[i] + "</li>");
-            }
+            document.getElementById("wotd-result").insertAdjacentHTML("beforeend", data);
+
         })
         .catch(error => {
             document.getElementById("wotd-result").insertAdjacentHTML("beforeend", "<li>Geen rijmende woorden gevonden </li>");
