@@ -47,7 +47,3 @@ def rhyme_word():
 
     except KeyError as e:
         return "Geen rijmende woorden gevonden!"
-
-
-if __name__ == '__main__':
-    app.run()
