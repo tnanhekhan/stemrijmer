@@ -46,4 +46,4 @@ def rhyme_word():
             return "<b>" + random.choice(rijm_embed) + "</b> rijmt op " + word + "!"
 
     except KeyError as e:
-        return "Geen rijmende woorden gevonden!"
+        return "Geen rijmwoorden gevonden!"
