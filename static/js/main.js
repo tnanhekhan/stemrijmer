@@ -12,7 +12,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 function startRecognition() {
     const to_speak = new SpeechSynthesisUtterance("Zeg een woord!");
     window.speechSynthesis.speak(to_speak);
-    sleep(1000).then(() => {
+
+    sleep(2000).then(() => {
         recognition.start()
         document.getElementById("speech-output").innerHTML = "";
     });
@@ -51,6 +52,12 @@ recognition.onend = (event) => {
     fetch('/rhyme', {method: 'POST', body: formData})
         .then(response => response.text())
         .then(data => {
+            sleep(1000)
+                .then(() => {
+                    const to_speak = new SpeechSynthesisUtterance(data);
+                    window.speechSynthesis.speak(to_speak);
+                });
+
             document.getElementById("speech-output").insertAdjacentHTML("beforeend", data);
         })
         .catch(error => {
