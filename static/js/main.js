@@ -6,9 +6,17 @@ recognition.continous = true;
 recognition.interimResults = true;
 recognition.maxAlternatives = 10;
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+
 function startRecognition() {
-    recognition.start()
-    document.getElementById("speech-output").innerHTML = "";
+    const to_speak = new SpeechSynthesisUtterance("Zeg een woord!");
+    window.speechSynthesis.speak(to_speak);
+
+    sleep(2000).then(() => {
+        recognition.start()
+        document.getElementById("speech-output").innerHTML = "";
+    });
 }
 
 let final_result;
@@ -23,8 +31,6 @@ recognition.onresult = (event) => {
 
 recognition.onstart = (event) => {
     document.getElementById("speech-output").insertAdjacentHTML("beforeend", "<li><strong>Opname gestart!</strong></li>");
-    const to_speak = new SpeechSynthesisUtterance("Zeg een woord en, klik op de knop!");
-    window.speechSynthesis.speak(to_speak);
 }
 
 recognition.onspeechstart = (event) => {
@@ -46,6 +52,12 @@ recognition.onend = (event) => {
     fetch('/rhyme', {method: 'POST', body: formData})
         .then(response => response.text())
         .then(data => {
+            sleep(1000)
+                .then(() => {
+                    const to_speak = new SpeechSynthesisUtterance(data);
+                    window.speechSynthesis.speak(to_speak);
+                });
+
             document.getElementById("speech-output").insertAdjacentHTML("beforeend", data);
         })
         .catch(error => {
