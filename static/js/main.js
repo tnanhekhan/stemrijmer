@@ -23,8 +23,6 @@ recognition.onresult = (event) => {
 
 recognition.onstart = (event) => {
     document.getElementById("speech-output").insertAdjacentHTML("beforeend", "<li><strong>Opname gestart!</strong></li>");
-    var player = new talkify.Html5Player(); //or new talkify.Html5Player()
-    player.playText('Hello world');
 }
 
 recognition.onspeechstart = (event) => {
