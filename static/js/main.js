@@ -9,6 +9,8 @@ recognition.maxAlternatives = 10;
 function startRecognition() {
     recognition.start()
     document.getElementById("speech-output").innerHTML = "";
+    const to_speak = new SpeechSynthesisUtterance("Klik op de knop, en zeg een woord!");
+    window.speechSynthesis.speak(to_speak);
 }
 
 let final_result;
@@ -23,8 +25,6 @@ recognition.onresult = (event) => {
 
 recognition.onstart = (event) => {
     document.getElementById("speech-output").insertAdjacentHTML("beforeend", "<li><strong>Opname gestart!</strong></li>");
-    const to_speak = new SpeechSynthesisUtterance("Zeg een woord en, klik op de knop!");
-    window.speechSynthesis.speak(to_speak);
 }
 
 recognition.onspeechstart = (event) => {
