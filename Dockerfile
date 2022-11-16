@@ -1,11 +1,11 @@
 FROM python:3.9
 
-WORKDIR /code
+COPY ./ /app
 
-COPY ./requirements.txt /code/requirements.txt
+WORKDIR  /app
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN ls -a
 
-COPY ./app /app
+RUN pip3 install -r requirements.txt
 
 CMD ["gunicorn", "--conf", "app/gunicorn_conf.py", "--bind", "0.0.0.0:8000", "wsgi:app"]
