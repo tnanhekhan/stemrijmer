@@ -56,10 +56,17 @@ recognition.onend = (event) => {
 document.getElementById("wotd-button").onclick = () => {
     let wotd = document.getElementById("wotd").innerHTML;
     let formData = new FormData();
+
+    const to_speak = new SpeechSynthesisUtterance("Wat rijmt er op, " + wotd + "?");
+    window.speechSynthesis.speak(to_speak);
+
     formData.append('query', wotd);
     fetch('/rhyme', {method: 'POST', body: formData})
         .then(response => response.text())
         .then(data => {
+            const to_speak = new SpeechSynthesisUtterance(data);
+            window.speechSynthesis.speak(to_speak);
+
             document.getElementById("wotd-result").insertAdjacentHTML("beforeend", data);
 
         })
