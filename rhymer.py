@@ -30,29 +30,15 @@ for d in (rijmwoordenboek, new_rijmwoordenboek):
             merged_rijmwoorden_dict[key].add(val)
 
 
-def get_rhyming_word(query):
-    try:
-        rhyming = merged_hulpwoorden_dict[query]
-        rhyming_results = list(merged_rijmwoorden_dict[rhyming])
-        return random.choice(rhyming_results)
-    except KeyError:
-        # If word not found, try to hyphenate word and get last part
-        pyphen_dict = pyphen.Pyphen(lang="nl_NL")
-        for pair in pyphen_dict.iterate(query):
-            last_part = pair[-1]
-            try:
-                rhyming = merged_hulpwoorden_dict[last_part]
-                rhyming_results = list(merged_rijmwoorden_dict[rhyming])
-                return random.choice(rhyming_results)
-
-            except KeyError:
-                return None
-
-
 def get_all_rhyming_words(query):
     try:
         rhyming = merged_hulpwoorden_dict[query]
-        return list(merged_rijmwoorden_dict[rhyming])
+        rhyming_list = list(merged_rijmwoorden_dict[rhyming])
+        rhyming_list.remove(query)
+        if rhyming_list:
+            return list(merged_rijmwoorden_dict[rhyming])
+        else:
+            return None
     except KeyError:
         # If word not found, try to hyphenate word and get last part
         pyphen_dict = pyphen.Pyphen(lang="nl_NL")
@@ -60,7 +46,9 @@ def get_all_rhyming_words(query):
             last_part = pair[-1]
             try:
                 rhyming = merged_hulpwoorden_dict[last_part]
-                return list(merged_rijmwoorden_dict[rhyming])
+                rhyming_list = list(merged_rijmwoorden_dict[rhyming])
+                rhyming_list.remove(query)
+                return rhyming_list
 
             except KeyError:
                 return None
