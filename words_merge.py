@@ -111,11 +111,30 @@ for i in range(len(merged)):
 
 #testing
 import csv
-with open('mergedtest.csv', 'w') as file:
+
+with open('rhymeswithwords.csv', 'w') as file:
     writer = csv.writer(file, delimiter=';')
     writer.writerow(merged)
+    
+extra_words.to_csv('wordswithrhyme.csv', index = False)
+extra_words.to_csv('wordshrhymena.csv')
     
 # =============================================================================
 # why is the first element in the csv in quotes?
 # =============================================================================
+
+# =============================================================================
+# Complete extra words dataframe
+# =============================================================================
+for i in range(1947, length):
+    for k in rhymes:
+        if extra_words.phoneme[i].endswith(k):
+            extra_words.rhyming[i] = k
+            
+extra_na = extra_words
+
+import numpy as np
+extra_na['rhyming'].replace(r'^\s*$', np.nan, regex=True)
+            
+extra_na.isna().sum()
 
