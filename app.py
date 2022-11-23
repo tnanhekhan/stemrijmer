@@ -1,13 +1,15 @@
 import random
 
+from flask import request, render_template, Flask
+
+import rhymer
 import rijmwoord
-from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def index():  # put application's code here
+def index():
     return render_template('index.html')
 
 
@@ -43,7 +45,7 @@ def rhyme_word():
     word = data[0]
 
     try:
-        rijm_embed = list(rijmwoord.rijmwoorden(word))
+        rijm_embed = rhymer.get_all_rhyming_words(word);
 
         if not rijm_embed:
             return "Ik weet niet wat rijmt op <b>" + word + "</b>"
