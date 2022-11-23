@@ -18,12 +18,15 @@ df['word'] = df['word'].str.lower()
 # Group all rows from csv with the same rhyming column and put the words in a set
 new_rijmwoordenboek = df.groupby('rhyming')['word'].apply(set).to_dict()
 
+# Change datafram index to word column
 df.set_index("word", inplace=True)
 new_hulprijmwoordenboek = df.to_dict()["rhyming"]
 
+# Merge hulprijmwoorden dict together with existing dict from rijmwoord.py
 merged_hulpwoorden_dict = hulprijmwoordenboek | new_hulprijmwoordenboek
-merged_rijmwoorden_dict = defaultdict(set)
 
+# Merge new rijmwoorden dict manually because of the sets
+merged_rijmwoorden_dict = defaultdict(set)
 for d in (rijmwoordenboek, new_rijmwoordenboek):
     for key, val_set in d.items():
         for val in val_set:
@@ -34,6 +37,7 @@ def get_all_rhyming_words(query):
     try:
         rhyming = merged_hulpwoorden_dict[query]
         rhyming_list = list(merged_rijmwoorden_dict[rhyming])
+        # Prevents returning the query as rhyming word
         rhyming_list.remove(query)
         if rhyming_list:
             return list(merged_rijmwoorden_dict[rhyming])
