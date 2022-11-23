@@ -48,7 +48,7 @@ def rhyme_word():
         rijm_embed = rhymer.get_all_rhyming_words(word);
 
         if not rijm_embed:
-            return "Ik weet niet wat rijmt op " + word + "."
+            return "Ik weet niet wat rijmt op " + word + ". "
         else:
             return random.choice(rijm_embed) + " rijmt op " + word + "! "
 
