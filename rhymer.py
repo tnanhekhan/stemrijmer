@@ -56,3 +56,6 @@ def get_all_rhyming_words(query):
 
             except KeyError:
                 return None
+
+            except ValueError:
+                return None
