@@ -67,6 +67,8 @@ def api_rhyme_word():
 
     try:
         rijm_embed = rhymer.get_all_rhyming_words(word)
+        while rijm_embed == word:
+            rijm_embed = rhymer.get_all_rhyming_words(word)
 
         if not rijm_embed:
             return jsonify({"query": word, "error": "Geen rijmwoorden gevonden!"}), 404

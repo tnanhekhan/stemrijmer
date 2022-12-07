@@ -9,7 +9,7 @@ import pyphen
 rijmwoordenboek = rijmwoord.rijmwoordenboek
 hulprijmwoordenboek = rijmwoord.hulprijmwoordenboek
 
-df = pd.read_csv("wordswithrhyme.csv")
+df = pd.read_csv("new_wordswithrhyme.csv")
 # Clean data by removing empty columns and making everything lowercase
 df.dropna(inplace=True)
 del df["phoneme"]
@@ -40,7 +40,7 @@ def get_all_rhyming_words(query):
         # Prevents returning the query as rhyming word
         rhyming_list.remove(query)
         if rhyming_list:
-            return list(merged_rijmwoorden_dict[rhyming])
+            return rhyming_list
         else:
             return None
     except KeyError:
