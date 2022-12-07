@@ -39,6 +39,11 @@ def get_all_rhyming_words(query):
         rhyming_list = list(merged_rijmwoorden_dict[rhyming])
         # Prevents returning the query as rhyming word
         rhyming_list.remove(query)
+
+        contains_query = [s for s in rhyming_list if query in s]
+        for dupe in contains_query:
+            rhyming_list.remove(dupe)
+
         if rhyming_list:
             return rhyming_list
         else:
