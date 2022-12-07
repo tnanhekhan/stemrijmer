@@ -1,6 +1,6 @@
 import random
 
-from flask import request, render_template, Flask
+from flask import request, render_template, Flask, jsonify
 
 import rhymer
 import rijmwoord
@@ -45,12 +45,33 @@ def rhyme_word():
     word = data[0]
 
     try:
-        rijm_embed = rhymer.get_all_rhyming_words(word);
+        rijm_embed = rhymer.get_all_rhyming_words(word)
 
         if not rijm_embed:
-            return "Ik weet niet wat rijmt op <b>" + word + "</b>"
+            return "Ik weet niet wat rijmt op " + word + ". "
         else:
-            return "<b>" + random.choice(rijm_embed) + "</b> rijmt op " + word + "!"
+            return random.choice(rijm_embed) + " rijmt op " + word + "! "
 
     except KeyError as e:
-        return "Ik weet niet wat rijmt op <b>" + word + "</b>"
+        return "Ik weet niet wat rijmt op " + word + ". "
+
+
+@app.route('/api/rhyme', methods=['GET'])
+def api_rhyme_word():
+    data = request.args["query"].lower().strip().split()
+
+    if not data:
+        return jsonify({"error": "Query is leeg"}), 404
+
+    word = data[0]
+
+    try:
+        rijm_embed = rhymer.get_all_rhyming_words(word)
+
+        if not rijm_embed:
+            return jsonify({"query": word, "error": "Geen rijmwoorden gevonden!"}), 404
+        else:
+            return jsonify({"query": word, "data": random.choice(rijm_embed).lower()}), 200
+
+    except KeyError as e:
+        return jsonify({"query": word, "error": "Geen rijmwoorden gevonden!"}), 404
