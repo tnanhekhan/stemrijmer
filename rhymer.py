@@ -9,18 +9,19 @@ import pyphen
 rijmwoordenboek = rijmwoord.rijmwoordenboek
 hulprijmwoordenboek = rijmwoord.hulprijmwoordenboek
 
-df = pd.read_csv("new_wordswithrhyme.csv")
+df = pd.read_csv("BAKgoodrhymes.csv")
 # Clean data by removing empty columns and making everything lowercase
 df.dropna(inplace=True)
 del df["phoneme"]
+df = df.rename(columns={"Nederlands": "word"})
 df['word'] = df['word'].str.lower()
 
 # Group all rows from csv with the same rhyming column and put the words in a set
-new_rijmwoordenboek = df.groupby('rhyming')['word'].apply(set).to_dict()
+new_rijmwoordenboek = df.groupby('true_rhyme')['word'].apply(set).to_dict()
 
 # Change datafram index to word column
 df.set_index("word", inplace=True)
-new_hulprijmwoordenboek = df.to_dict()["rhyming"]
+new_hulprijmwoordenboek = df.to_dict()["true_rhyme"]
 
 # Merge hulprijmwoorden dict together with existing dict from rijmwoord.py
 merged_hulpwoorden_dict = hulprijmwoordenboek | new_hulprijmwoordenboek
