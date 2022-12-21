@@ -9,7 +9,7 @@ import pyphen
 rijmwoordenboek = rijmwoord.rijmwoordenboek
 hulprijmwoordenboek = rijmwoord.hulprijmwoordenboek
 
-df = pd.read_csv("BAKgoodrhymes.csv")
+df = pd.read_csv("BIGgoodrhymes.csv")
 # Clean data by removing empty columns and making everything lowercase
 df.dropna(inplace=True)
 del df["phoneme"]
